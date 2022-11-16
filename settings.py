@@ -15,9 +15,9 @@ class AppConfigError(Exception):
 class AppSettings:
     """Application settings."""
 
-    APP_NAME: str = "Uncanny"
+    APP_NAME: str = "Noto"
     APP_VERSION: str = "0.1.0"
-    SUPPORT_EMAIL: EmailStr = EmailStr("support@uncanny.app")
+    SUPPORT_EMAIL: EmailStr = EmailStr("support@getnoto.app")
 
     DEBUG: bool = True
     ENV: str = "development"
