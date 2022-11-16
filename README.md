@@ -1,6 +1,6 @@
 <div align="center">
 
-# Noto
+# Nōto
 
   <p>API first changelog manager for startups and product teams</p>
 </div>
