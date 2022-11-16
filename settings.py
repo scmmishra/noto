@@ -7,11 +7,6 @@ from utils import parse_bool
 
 import os
 
-SQL_FILE_URL = "database.db"
-SQLITE_URL = f"sqlite:///{SQL_FILE_URL}"
-
-ENGINE = create_engine(SQLITE_URL, echo=True, connect_args={"check_same_thread": False})
-
 
 class AppConfigError(Exception):
     pass
