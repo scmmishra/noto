@@ -25,5 +25,6 @@ def on_startup():
 async def info():
     return {
         "app_name": Config.APP_NAME,
+        "app_version": Config.APP_VERSION,
         "support_email": Config.SUPPORT_EMAIL,
     }
