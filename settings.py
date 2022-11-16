@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 from sqlalchemy.future import Engine
 from sqlmodel import create_engine
-from pydantic import PostgresDsn, SecretStr
+from pydantic import PostgresDsn, SecretStr, EmailStr
 from typing import get_type_hints
 from utils import parse_bool
 
@@ -19,6 +19,10 @@ class AppConfigError(Exception):
 
 class AppSettings:
     """Application settings."""
+
+    APP_NAME: str = "Uncanny"
+    APP_VERSION: str = "0.1.0"
+    SUPPORT_EMAIL: EmailStr = EmailStr("support@uncanny.app")
 
     DEBUG: bool = True
     ENV: str = "development"
