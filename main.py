@@ -1,7 +1,11 @@
 import logging
 from fastapi import FastAPI
-from sqlmodel import SQLModel
+from sqlmodel import SQLModel, Session
+from pydantic import EmailStr
 from settings import Config
+
+from models.user import User
+from models.team import Team
 
 
 def create_db_and_tables():
@@ -33,3 +37,23 @@ async def info():
 async def pong():
     # ping pong
     return {"ping": "pong!"}
+
+
+@app.get("/build-demo")
+async def build_demo():
+    if not Config.DEBUG:
+        return {"error": "This endpoint is only available in debug mode."}
+
+    from faker import Faker
+
+    fake = Faker()
+
+    user = User(
+        first_name=fake.first_name(),
+        last_name=fake.last_name(),
+        email=EmailStr(fake.email()),
+    )
+
+    with Session(Config.engine) as session:
+        session.add(user)
+        session.commit()
