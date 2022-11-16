@@ -76,7 +76,9 @@ class AppSettings:
             password=self.DB_PASSWORD.get_secret_value(),
             host=self.DB_HOST,
             port=self.DB_PORT,
+            path="/postgres",
         )
+
         self.engine = create_engine(db_connection_string, echo=True)
 
 
