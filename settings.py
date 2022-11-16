@@ -77,11 +77,7 @@ class AppSettings:
             host=self.DB_HOST,
             port=self.DB_PORT,
         )
-        self.engine = create_engine(
-            db_connection_string,
-            echo=True,
-            connect_args={"check_same_thread": False},
-        )
+        self.engine = create_engine(db_connection_string, echo=True)
 
 
 # load the environment variables from .env file
