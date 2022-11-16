@@ -27,3 +27,9 @@ async def info():
         "app_version": Config.APP_VERSION,
         "support_email": Config.SUPPORT_EMAIL,
     }
+
+
+@app.get("/ping")
+async def pong():
+    # ping pong
+    return {"ping": "pong!"}
