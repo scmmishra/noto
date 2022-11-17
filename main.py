@@ -51,9 +51,21 @@ async def build_demo():
     user = User(
         first_name=fake.first_name(),
         last_name=fake.last_name(),
+        avatar=fake.file_path(depth=2, category="image"),
         email=EmailStr(fake.email()),
     )
+    print(fake.file_path(depth=2, category="image"))
 
     with Session(Config.engine) as session:
         session.add(user)
+        session.commit()
+
+        team = Team(
+            name=fake.company(),
+            tagline=fake.catch_phrase(),
+            website_url=fake.domain_name(),
+            owner_id=user.id or 0,
+        )
+
+        session.add(team)
         session.commit()
