@@ -12,4 +12,4 @@ class User(SQLModel, table=True):
     email: EmailStr = Field(default=None, unique=True, index=True, nullable=False)
     last_name: Optional[str] = Field()
     avatar: Optional[FileUrl] = Field(default=None, nullable=True)
-    # ownerships: List["Team"] = Relationship(back_populates="owner")
+    ownerships: List["Team"] = Relationship(back_populates="owner")

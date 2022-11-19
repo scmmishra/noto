@@ -2,7 +2,7 @@ from typing import Optional
 from pydantic import FileUrl, HttpUrl
 from sqlmodel import Field, SQLModel, Relationship
 
-# from models.user import User
+from models.user import User
 
 
 class Team(SQLModel, table=True):
@@ -15,4 +15,4 @@ class Team(SQLModel, table=True):
     logo: Optional[FileUrl] = Field(default=None)
     tagline: Optional[str] = Field(nullable=True)
     team_logo: Optional[FileUrl] = Field(default=None, nullable=True)
-    # owner: User = Relationship(back_populates="users")
+    owner: User = Relationship(back_populates="ownerships")
