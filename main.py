@@ -64,7 +64,9 @@ async def build_demo():
             name=fake.company(),
             tagline=fake.catch_phrase(),
             website_url=fake.domain_name(),
+            subdomain=fake.domain_word(),
             owner_id=user.id or 0,
+            owner=user,
         )
 
         session.add(team)
