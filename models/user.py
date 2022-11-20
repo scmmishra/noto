@@ -12,4 +12,5 @@ class User(SQLModel, table=True):
     email: EmailStr = Field(default=None, unique=True, index=True, nullable=False)
     last_name: Optional[str] = Field()
     avatar: Optional[FileUrl] = Field(default=None, nullable=True)
+    is_active: bool = Field(default=False, nullable=False, index=True)
     ownerships: List["Team"] = Relationship(back_populates="owner")
