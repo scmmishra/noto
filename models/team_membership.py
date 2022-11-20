@@ -4,7 +4,7 @@ from sqlmodel import Field, SQLModel
 
 
 class RoleEnum(str, Enum):
-    owner = "owner"
+    admin = "admin"
     member = "member"
 
 
