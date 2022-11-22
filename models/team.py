@@ -1,8 +1,9 @@
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
 from pydantic import FileUrl, HttpUrl
 from sqlmodel import Field, SQLModel, Relationship
 
 from models.user import User
+
 from models import TimeStampMixin
 
 
