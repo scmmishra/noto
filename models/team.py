@@ -3,9 +3,10 @@ from pydantic import FileUrl, HttpUrl
 from sqlmodel import Field, SQLModel, Relationship
 
 from models.user import User
+from models import TimeStampMixin
 
 
-class Team(SQLModel, table=True):
+class Team(TimeStampMixin, SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     name: str = Field(index=True)
     subdomain: str = Field(index=True, unique=True, max_length=50, nullable=False)
