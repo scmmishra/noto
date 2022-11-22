@@ -1,13 +1,10 @@
 # https://github.com/tiangolo/sqlmodel/issues/254
 from sqlalchemy import Column
 
-from typing import Optional, TYPE_CHECKING
+from typing import Optional
 from pydantic import BaseModel
 from sqlmodel import Field, DateTime
 from datetime import datetime
-
-if TYPE_CHECKING:
-    from models.user import User
 
 
 class TimeStampMixin(BaseModel):
