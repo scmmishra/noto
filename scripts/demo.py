@@ -5,6 +5,7 @@ from settings import Config
 
 from models.user import User
 from models.team import Team
+from models.post import ChangelogPost
 from models.team_membership import TeamMembershipLink, RoleEnum
 
 logger = logging.getLogger(Config.APP_NAME)

@@ -5,6 +5,7 @@ from models import TimeStampMixin
 
 if TYPE_CHECKING:
     from models.team import Team
+    from models.team import User
 
 
 class User(TimeStampMixin, SQLModel, table=True):
@@ -15,3 +16,4 @@ class User(TimeStampMixin, SQLModel, table=True):
     avatar: Optional[FileUrl] = Field(default=None, nullable=True)
     is_active: bool = Field(default=False, nullable=False, index=True)
     ownerships: List["Team"] = Relationship(back_populates="owner")
+    changelog_posts: List["User"] = Relationship(back_populates="author")

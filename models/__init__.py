@@ -1,12 +1,13 @@
 # https://github.com/tiangolo/sqlmodel/issues/254
 from sqlalchemy import Column
 
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
 from pydantic import BaseModel
-from sqlmodel import Field, SQLModel, DateTime, Relationship
+from sqlmodel import Field, DateTime
 from datetime import datetime
 
-from models.user import User
+if TYPE_CHECKING:
+    from models.user import User
 
 
 class TimeStampMixin(BaseModel):
@@ -25,17 +26,3 @@ class TimeStampMixin(BaseModel):
             nullable=False,
         )
     )
-
-
-class PublishableMixin(BaseModel):
-    published_on: Optional[datetime] = Field(
-        sa_column=Column(
-            DateTime,
-            default=None,
-            nullable=True,
-        )
-    )
-    author_id: Optional[int] = Field(
-        default=None, foreign_key="user.id", primary_key=True
-    )
-    # author: User = Relationship(back_populates="posts")
