@@ -3,10 +3,10 @@ from sqlmodel import SQLModel, Session, select
 from pydantic import EmailStr, HttpUrl
 from settings import Config
 
-from models.user import User
-from models.team import Team
-from models.post import ChangelogPost
-from models.team_membership import RoleEnum
+from api.public.user.model import User
+from api.public.team.model import Team
+from api.public.post.model import ChangelogPost
+from api.public.team_membership.model import RoleEnum
 
 from errors import DebugModeOnlyError
 

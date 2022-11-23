@@ -4,12 +4,12 @@ from sqlalchemy import Column
 from typing import Optional
 from pydantic import FileUrl
 from sqlmodel import Field, SQLModel, Relationship
-from models import TimeStampMixin
+from api.mixins.timestamp import TimeStampMixin
 from sqlmodel import Field, DateTime
 from datetime import datetime
 
-from models.team import Team
-from models.user import User
+from api.public.team.model import Team
+from api.public.user.model import User
 
 
 class ChangelogPost(TimeStampMixin, SQLModel, table=True):
