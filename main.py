@@ -1,7 +1,8 @@
 import logging
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from sqlmodel import SQLModel
 from settings import Config
+from errors.debug import DebugModeOnlyError
 from scripts.demo import build
 
 
@@ -38,4 +39,8 @@ async def pong():
 
 @app.get("/build-demo")
 async def build_demo():
-    build()
+    try:
+        build()
+        return {"message": "Demo data built"}
+    except DebugModeOnlyError:
+        raise HTTPException(status_code=403, detail="Not allowed")
