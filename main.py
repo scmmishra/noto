@@ -38,7 +38,4 @@ async def pong():
 
 @app.get("/build-demo")
 async def build_demo():
-    try:
-        build()
-    except Exception as e:
-        return {"error": str(e)}
+    build()
