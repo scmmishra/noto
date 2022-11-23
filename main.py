@@ -1,15 +1,10 @@
 import logging
-from fastapi import FastAPI
-from sqlmodel import SQLModel
+from fastapi import FastAPI, HTTPException, status
 from settings import Config
+from errors import DebugModeOnlyError
 from scripts.demo import build
 
-
-def create_db_and_tables():
-    # create the database and tables
-    logger.info("Creating database and tables")
-    SQLModel.metadata.create_all(Config.engine)
-
+from database import create_db_and_tables
 
 logger = logging.getLogger(Config.APP_NAME)
 
@@ -18,24 +13,19 @@ app = FastAPI()
 
 @app.on_event("startup")
 def on_startup():
+    logger.info("Creating database and tables")
     create_db_and_tables()
 
 
-@app.get("/info")
-async def info():
-    return {
-        "app_name": Config.APP_NAME,
-        "app_version": Config.APP_VERSION,
-        "support_email": Config.SUPPORT_EMAIL,
-    }
+if Config.DEBUG:
 
-
-@app.get("/ping")
-async def pong():
-    # ping pong
-    return {"ping": "pong!"}
-
-
-@app.get("/build-demo")
-async def build_demo():
-    build()
+    @app.get("/build-demo")
+    async def build_demo():
+        """Build demo data"""
+        try:
+            build()
+            return {"message": "Demo data built"}
+        except DebugModeOnlyError:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN, detail="Not allowed"
+            )

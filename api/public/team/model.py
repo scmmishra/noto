@@ -4,16 +4,18 @@ from sqlmodel import Field, SQLModel, Relationship
 from sqlmodel import Session
 from settings import Config
 
-from models.user import User
+from api.public.user.model import User
 
 if TYPE_CHECKING:
-    from models.post import ChangelogPost
+    from api.public.post.model import ChangelogPost
 
-from models import TimeStampMixin
-from models.team_membership import TeamMembershipLink, RoleEnum
+from api.mixins.timestamp import TimeStampMixin
+from api.public.team_membership.model import TeamMembershipLink, RoleEnum
 
 
 class Team(TimeStampMixin, SQLModel, table=True):
+    """Team model"""
+
     id: int = Field(default=None, primary_key=True)
     name: str = Field(index=True)
     subdomain: str = Field(index=True, unique=True, max_length=50, nullable=False)
@@ -29,7 +31,6 @@ class Team(TimeStampMixin, SQLModel, table=True):
 
     def add_member(self, user: User, role: RoleEnum = RoleEnum.member):
         """Add a member to a team."""
-
         with Session(Config.engine) as session:
             team_membership = TeamMembershipLink(
                 team_id=self.id,

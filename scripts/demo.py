@@ -3,12 +3,12 @@ from sqlmodel import SQLModel, Session, select
 from pydantic import EmailStr, HttpUrl
 from settings import Config
 
-from models.user import User
-from models.team import Team
-from models.post import ChangelogPost
-from models.team_membership import RoleEnum
+from api.public.user.model import User
+from api.public.team.model import Team
+from api.public.post.model import ChangelogPost
+from api.public.team_membership.model import RoleEnum
 
-from errors.debug import OnlyDebugError
+from errors import DebugModeOnlyError
 
 logger = logging.getLogger(Config.APP_NAME)
 
@@ -26,7 +26,7 @@ from sqlalchemy import MetaData
 
 def reset_db():
     if not Config.DEBUG:
-        raise OnlyDebugError("This action is only available in debug mode.")
+        raise DebugModeOnlyError("This action is only available in debug mode.")
     meta = MetaData()
     print("Dropping all tables")
     with contextlib.closing(Config.engine.connect()) as con:
@@ -39,7 +39,7 @@ def reset_db():
 
 def make_demo_user(first_name=None, last_name=None):
     if not Config.DEBUG:
-        raise OnlyDebugError("This action is only available in debug mode.")
+        raise DebugModeOnlyError("This action is only available in debug mode.")
 
     first_name = first_name if first_name else fake.unique.first_name()
 
@@ -53,7 +53,7 @@ def make_demo_user(first_name=None, last_name=None):
 
 def make_demo_team(owner: User, name=None, tagline=None, website_url=None):
     if not Config.DEBUG:
-        raise OnlyDebugError("This action is only available in debug mode.")
+        raise DebugModeOnlyError("This action is only available in debug mode.")
 
     url = website_url if website_url else fake.url()
 
@@ -70,7 +70,7 @@ def make_demo_team(owner: User, name=None, tagline=None, website_url=None):
 
 def make_demo_post(team: Team):
     if not Config.DEBUG:
-        raise OnlyDebugError("This action is only available in debug mode.")
+        raise DebugModeOnlyError("This action is only available in debug mode.")
 
     return ChangelogPost(
         title=fake.sentence(),
@@ -85,7 +85,7 @@ def make_demo_post(team: Team):
 
 def build():
     if not Config.DEBUG:
-        raise OnlyDebugError("This action is only available in debug mode.")
+        raise DebugModeOnlyError("This action is only available in debug mode.")
 
     reset_db()
 

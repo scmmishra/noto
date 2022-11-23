@@ -8,6 +8,8 @@ from datetime import datetime
 
 
 class TimeStampMixin(BaseModel):
+    """TimeStampMixin to add created_on and updated_on dates"""
+
     created_on: Optional[datetime] = Field(
         sa_column=Column(
             DateTime,
