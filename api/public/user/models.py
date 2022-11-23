@@ -8,14 +8,25 @@ if TYPE_CHECKING:
     from api.public.post.models import ChangelogPost
 
 
+class UserBase(TimeStampMixin, SQLModel):
+    first_name: str = Field()
+    email: EmailStr = Field(default=None, unique=True, index=True, nullable=False)
+    last_name: str = Field()
+    avatar: Optional[FileUrl] = Field(default=None, nullable=True)
+
+
 class User(TimeStampMixin, SQLModel, table=True):
     """User model"""
 
     id: Optional[int] = Field(default=None, primary_key=True)
-    first_name: str = Field()
-    email: EmailStr = Field(default=None, unique=True, index=True, nullable=False)
-    last_name: Optional[str] = Field()
-    avatar: Optional[FileUrl] = Field(default=None, nullable=True)
-    is_active: bool = Field(default=True, nullable=False, index=True)
     ownerships: List["Team"] = Relationship(back_populates="owner")
+    is_active: bool = Field(default=True, nullable=False, index=True)
     changelog_posts: List["ChangelogPost"] = Relationship(back_populates="author")
+
+
+class UserCreate(UserBase):
+    """User create model"""
+
+
+class UserUpdate(UserBase):
+    """User update model"""
