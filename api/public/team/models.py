@@ -74,7 +74,4 @@ class TeamRead(TeamBase):
 
 
 class TeamUpdate(TeamBase):
-    name: Optional[str] = None
-    website_url: Optional[str] = None
-    logo: Optional[FileUrl] = None
-    tagline: Optional[str] = None
+    pass
