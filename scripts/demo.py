@@ -6,7 +6,7 @@ from settings import Config
 from api.public.user.models import User
 from api.public.team.models import Team
 from api.public.post.models import ChangelogPost
-from api.public.team_membership.models import RoleEnum
+from api.public.team.models import RoleEnum
 
 from errors import DebugModeOnlyError
 
