@@ -109,7 +109,7 @@ def build():
             faris,
             "Gameplan",
             "Gameplan is a better way to communicate with your team.",
-            "gameplan.so",
+            "https://gameplan.so",
         )
 
         session.add(gameplan)
