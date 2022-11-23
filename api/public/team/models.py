@@ -1,16 +1,35 @@
 from typing import Optional, List, TYPE_CHECKING
 from pydantic import FileUrl, HttpUrl
-from sqlmodel import Field, SQLModel, Relationship
-from sqlmodel import Session
+from enum import Enum
+
+from sqlmodel import Session, Field, SQLModel, Relationship
+
 from settings import Config
 
 from api.public.user.models import User
+from api.mixins.timestamp import TimeStampMixin
 
 if TYPE_CHECKING:
     from api.public.post.models import ChangelogPost
 
-from api.mixins.timestamp import TimeStampMixin
-from api.public.team_membership.models import TeamMembershipLink, RoleEnum
+
+class RoleEnum(str, Enum):
+    """RoleEnum enum"""
+
+    admin = "admin"
+    member = "member"
+
+
+class TeamMembershipLink(SQLModel, table=True):
+    """Team membership link model"""
+
+    team_id: Optional[int] = Field(
+        default=None, foreign_key="team.id", primary_key=True
+    )
+    user_id: Optional[int] = Field(
+        default=None, foreign_key="user.id", primary_key=True
+    )
+    role: RoleEnum = Field(default="member", max_length=50, nullable=False)
 
 
 class TeamBase(TimeStampMixin, SQLModel):
