@@ -4,13 +4,13 @@ from sqlmodel import Field, SQLModel, Relationship
 from sqlmodel import Session
 from settings import Config
 
-from api.public.user.model import User
+from api.public.user.models import User
 
 if TYPE_CHECKING:
-    from api.public.post.model import ChangelogPost
+    from api.public.post.models import ChangelogPost
 
 from api.mixins.timestamp import TimeStampMixin
-from api.public.team_membership.model import TeamMembershipLink, RoleEnum
+from api.public.team_membership.models import TeamMembershipLink, RoleEnum
 
 
 class TeamBase(TimeStampMixin, SQLModel):

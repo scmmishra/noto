@@ -8,7 +8,7 @@ from api.mixins.timestamp import TimeStampMixin
 from datetime import datetime
 
 from api.public.team.models import Team
-from api.public.user.model import User
+from api.public.user.models import User
 
 
 class ChangelogPost(TimeStampMixin, SQLModel, table=True):
