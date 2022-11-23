@@ -1,6 +1,5 @@
 import logging
-from fastapi import FastAPI, HTTPException
-from sqlmodel import SQLModel
+from fastapi import FastAPI, HTTPException, status
 from settings import Config
 from errors import DebugModeOnlyError
 from scripts.demo import build
@@ -24,4 +23,4 @@ async def build_demo():
         build()
         return {"message": "Demo data built"}
     except DebugModeOnlyError:
-        raise HTTPException(status_code=403, detail="Not allowed")
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not allowed")
