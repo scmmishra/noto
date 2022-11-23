@@ -7,7 +7,7 @@ from sqlmodel import Field, SQLModel, Relationship, DateTime
 from api.mixins.timestamp import TimeStampMixin
 from datetime import datetime
 
-from api.public.team.model import Team
+from api.public.team.models import Team
 from api.public.user.model import User
 
 

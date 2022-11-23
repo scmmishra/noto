@@ -4,7 +4,7 @@ from pydantic import EmailStr, HttpUrl
 from settings import Config
 
 from api.public.user.model import User
-from api.public.team.model import Team
+from api.public.team.models import Team
 from api.public.post.model import ChangelogPost
 from api.public.team_membership.model import RoleEnum
 
@@ -61,7 +61,7 @@ def make_demo_team(owner: User, name=None, tagline=None, website_url=None):
         name=name if name else fake.company(),
         tagline=tagline if tagline else fake.catch_phrase(),
         website_url=HttpUrl(url=url, scheme="https"),
-        team_logo=fake.file_path(depth=2, category="image"),
+        logo=fake.file_path(depth=2, category="image"),
         subdomain=name.lower() if name else fake.slug(),
         owner_id=owner.id or 0,
         owner=owner,

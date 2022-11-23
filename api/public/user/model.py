@@ -4,7 +4,7 @@ from sqlmodel import Field, SQLModel, Relationship
 from api.mixins.timestamp import TimeStampMixin
 
 if TYPE_CHECKING:
-    from api.public.team.model import Team
+    from api.public.team.models import Team
     from api.public.post.model import ChangelogPost
 
 

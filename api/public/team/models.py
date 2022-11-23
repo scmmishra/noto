@@ -13,20 +13,20 @@ from api.mixins.timestamp import TimeStampMixin
 from api.public.team_membership.model import TeamMembershipLink, RoleEnum
 
 
-class Team(TimeStampMixin, SQLModel, table=True):
-    """Team model"""
-
-    id: int = Field(default=None, primary_key=True)
+class TeamBase(TimeStampMixin, SQLModel):
     name: str = Field(index=True)
     subdomain: str = Field(index=True, unique=True, max_length=50, nullable=False)
     owner_id: int = Field(default=None, foreign_key="user.id")
-
     website_url: Optional[HttpUrl] = Field(default=None)
-    logo: Optional[FileUrl] = Field(default=None)
+    logo: Optional[FileUrl] = Field(default=None, nullable=True)
     tagline: Optional[str] = Field(nullable=True)
-    team_logo: Optional[FileUrl] = Field(default=None, nullable=True)
-    owner: User = Relationship(back_populates="ownerships")
 
+
+class Team(TeamBase, table=True):
+    """Team model"""
+
+    id: int = Field(default=None, primary_key=True)
+    owner: User = Relationship(back_populates="ownerships")
     changelog_posts: List["ChangelogPost"] = Relationship(back_populates="for_team")
 
     def add_member(self, user: User, role: RoleEnum = RoleEnum.member):
@@ -44,3 +44,18 @@ class Team(TimeStampMixin, SQLModel, table=True):
             session.commit()
 
             return team_membership
+
+
+class TeamCreate(TeamBase):
+    pass
+
+
+class TeamRead(TeamBase):
+    id: int
+
+
+class TeamUpdate(TeamBase):
+    name: Optional[str] = None
+    website_url: Optional[str] = None
+    logo: Optional[FileUrl] = None
+    tagline: Optional[str] = None
