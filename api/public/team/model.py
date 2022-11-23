@@ -14,6 +14,8 @@ from api.public.team_membership.model import TeamMembershipLink, RoleEnum
 
 
 class Team(TimeStampMixin, SQLModel, table=True):
+    """Team model"""
+
     id: int = Field(default=None, primary_key=True)
     name: str = Field(index=True)
     subdomain: str = Field(index=True, unique=True, max_length=50, nullable=False)

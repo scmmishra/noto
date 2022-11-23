@@ -3,9 +3,8 @@ from sqlalchemy import Column
 
 from typing import Optional
 from pydantic import FileUrl
-from sqlmodel import Field, SQLModel, Relationship
+from sqlmodel import Field, SQLModel, Relationship, DateTime
 from api.mixins.timestamp import TimeStampMixin
-from sqlmodel import Field, DateTime
 from datetime import datetime
 
 from api.public.team.model import Team
@@ -13,6 +12,8 @@ from api.public.user.model import User
 
 
 class ChangelogPost(TimeStampMixin, SQLModel, table=True):
+    """ChangelogPost model"""
+
     id: int = Field(default=None, primary_key=True)
     title: str = Field(max_length=120, nullable=False)
     slug: str = Field(max_length=120, nullable=False, unique=True)

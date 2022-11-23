@@ -17,10 +17,15 @@ def on_startup():
     create_db_and_tables()
 
 
-@app.get("/build-demo")
-async def build_demo():
-    try:
-        build()
-        return {"message": "Demo data built"}
-    except DebugModeOnlyError:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not allowed")
+if Config.DEBUG:
+
+    @app.get("/build-demo")
+    async def build_demo():
+        """Build demo data"""
+        try:
+            build()
+            return {"message": "Demo data built"}
+        except DebugModeOnlyError:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN, detail="Not allowed"
+            )

@@ -9,6 +9,8 @@ if TYPE_CHECKING:
 
 
 class User(TimeStampMixin, SQLModel, table=True):
+    """User model"""
+
     id: Optional[int] = Field(default=None, primary_key=True)
     first_name: str = Field()
     email: EmailStr = Field(default=None, unique=True, index=True, nullable=False)

@@ -4,11 +4,15 @@ from sqlmodel import Field, SQLModel
 
 
 class RoleEnum(str, Enum):
+    """RoleEnum enum"""
+
     admin = "admin"
     member = "member"
 
 
 class TeamMembershipLink(SQLModel, table=True):
+    """Team membership link model"""
+
     team_id: Optional[int] = Field(
         default=None, foreign_key="team.id", primary_key=True
     )
