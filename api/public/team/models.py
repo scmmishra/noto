@@ -35,7 +35,6 @@ class TeamMembershipLink(SQLModel, table=True):
 class TeamBase(TimeStampMixin, SQLModel):
     name: str = Field(index=True)
     subdomain: str = Field(index=True, unique=True, max_length=50, nullable=False)
-    owner_id: int = Field(default=None, foreign_key="user.id")
     website_url: Optional[HttpUrl] = Field(default=None)
     logo: Optional[FileUrl] = Field(default=None, nullable=True)
     tagline: Optional[str] = Field(nullable=True)
@@ -46,6 +45,7 @@ class Team(TeamBase, table=True):
 
     id: int = Field(default=None, primary_key=True)
     owner: User = Relationship(back_populates="ownerships")
+    owner_id: int = Field(foreign_key="user.id", nullable=False)
     changelog_posts: List["ChangelogPost"] = Relationship(back_populates="for_team")
 
     def add_member(self, user: User, role: RoleEnum = RoleEnum.member):
