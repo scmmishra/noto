@@ -2,7 +2,7 @@ import logging
 from fastapi import FastAPI, HTTPException
 from sqlmodel import SQLModel
 from settings import Config
-from errors.debug import DebugModeOnlyError
+from errors import DebugModeOnlyError
 from scripts.demo import build
 
 from database import create_db_and_tables

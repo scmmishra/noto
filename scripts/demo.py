@@ -8,7 +8,7 @@ from models.team import Team
 from models.post import ChangelogPost
 from models.team_membership import RoleEnum
 
-from errors.debug import DebugModeOnlyError
+from errors import DebugModeOnlyError
 
 logger = logging.getLogger(Config.APP_NAME)
 
