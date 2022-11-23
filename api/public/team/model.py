@@ -31,7 +31,6 @@ class Team(TimeStampMixin, SQLModel, table=True):
 
     def add_member(self, user: User, role: RoleEnum = RoleEnum.member):
         """Add a member to a team."""
-
         with Session(Config.engine) as session:
             team_membership = TeamMembershipLink(
                 team_id=self.id,
