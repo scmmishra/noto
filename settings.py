@@ -36,9 +36,7 @@ class AppSettings:
         self.__init_db_engine()
 
     def __load_env_variables(self, env):
-        """
-        Load, validate and transform environment variables from .env file.
-        """
+        """Load, validate and transform environment variables from .env file."""
         for field in self.__annotations__:
             # if the value is uppercase, it's an environment variable
             if not field.isupper():
@@ -67,9 +65,7 @@ class AppSettings:
                 )
 
     def __init_db_engine(self):
-        """
-        Initialize SQLModel engine.
-        """
+        """Initialize SQLModel engine."""
         db_connection_string = PostgresDsn.build(
             scheme="postgresql",
             user=self.DB_USER,
