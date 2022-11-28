@@ -7,21 +7,17 @@ from sqlmodel import Field, SQLModel, Relationship, DateTime
 from api.mixins.timestamp import TimeStampMixin
 from datetime import datetime
 
-from api.public.team.model import Team
-from api.public.user.model import User
+from api.public.team.models import Team
+from api.public.user.models import User
 
 
-class ChangelogPost(TimeStampMixin, SQLModel, table=True):
-    """ChangelogPost model"""
-
-    id: int = Field(default=None, primary_key=True)
+class ChangelogPostBase(TimeStampMixin, SQLModel):
     title: str = Field(max_length=120, nullable=False)
-    slug: str = Field(max_length=120, nullable=False, unique=True)
+    slug: str = Field(max_length=120, nullable=False, unique=True, primary_key=True)
     short_description: str = Field(max_length=250, nullable=False)
     content: str = Field(sa_column=Column(TEXT))
     hero_image: Optional[FileUrl] = Field(default=None)
-    for_team_id: int = Field(default=None, foreign_key="team.id")
-    for_team: Team = Relationship(back_populates="changelog_posts")
+    for_team_id: int = Field(default=None, foreign_key="team.id", primary_key=True)
     tags: Optional[str] = Field(default=None, nullable=True)
 
     published_on: Optional[datetime] = Field(
@@ -31,5 +27,24 @@ class ChangelogPost(TimeStampMixin, SQLModel, table=True):
             nullable=True,
         )
     )
+
+
+class ChangelogPost(ChangelogPostBase, table=True):
+    """ChangelogPost model"""
+
     author_id: Optional[int] = Field(default=None, foreign_key="user.id")
+    for_team: Team = Relationship(back_populates="changelog_posts")
     author: "User" = Relationship(back_populates="changelog_posts")
+
+
+class ChangelogPostCreate(ChangelogPostBase):
+    # to be replaced with the API user
+    author_id: int
+
+
+class ChangelogPostRead(ChangelogPostBase):
+    author_id: int
+
+
+class ChangelogPostUpdate(ChangelogPostBase):
+    pass
