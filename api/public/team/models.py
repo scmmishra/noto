@@ -57,8 +57,6 @@ class Team(TeamBase, table=True):
                 role=role,
             )
 
-            print(self.id, self)
-
             session.add(team_membership)
             session.commit()
 
