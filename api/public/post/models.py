@@ -43,7 +43,6 @@ class ChangelogPostCreate(ChangelogPostBase):
 
 
 class ChangelogPostRead(ChangelogPostBase):
-    id: int
     author_id: int
 
 
